@@ -145,7 +145,7 @@ def editar_tarea(id, nuevo_texto):
         cursor = conn.cursor()
 
         cursor.execute(
-            "UPDATE tarea SET texto = ? WHERE id = ?",
+            "UPDATE tareas SET texto = ? WHERE id = ?",
             (nuevo_texto, id)
         )
 

@@ -1,8 +1,32 @@
-<h1>Editar tarea</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Tarea</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com" />
+</head>
+<body>
 
-<form method="POST">
-    <input type="text" name="texto" value="{{ tarea['texto'] }}">
-    <button type="submit">Guardar</button>
-</form>
+<!-- Agregamos la clase edit-mode aquí -->
+<div class="container edit-mode">
+    <h1>Editar tarea</h1>
 
-<a href="/">Volver</a>
+    <form method="POST" class="add-task-form">
+        <input type="text" name="texto" value="{{ tarea['texto'] }}" required autofocus>
+        
+        <button type="submit" class="btn-add btn-save" title="Guardar cambios">
+            <span class="material-symbols-rounded">Guardar</span>
+        </button>
+    </form>
+
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="/" class="btn-action" style="width: auto; padding: 0 20px; display: inline-flex; gap: 8px; color: white;">
+            <span class="material-symbols-rounded"></span>
+            Volver
+        </a>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,15 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
     <title>To-Do List</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Google Material Symbols (Más confiable que Font Awesome) -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com" />
 </head>
 <body>
-
-
-
-
-
 
 <div class="container">
     {% with mensajes = get_flashed_messages() %}
@@ -24,32 +22,43 @@
 
     <h1>To-Do List</h1>
 
-    <form method="POST" action="/agregar">
-        <input type="text" name="texto" placeholder="Nueva tarea">
-        <button type="submit">Agregar</button>
+    <form method="POST" action="/agregar" class="add-task-form">
+        <input type="text" name="texto" placeholder="Nueva tarea" required>
+        <button type="submit" class="btn-add">
+            <span class="material-symbols-rounded"> + </span>
+        </button>
     </form>
 
     <ul>
         {% for tarea in tareas %}
-        <li>
+        <li class="task-item">
             <span class="task-text {% if tarea['hecha'] %}done{% endif %}">
-                {{ tarea["id"] }} - {{ tarea["texto"] }}
+                {{ tarea["texto"] }}
             </span>
 
             <div class="actions">
                 {% if not tarea["hecha"] %}
-                <form method="POST" action="/terminar/{{ tarea['id'] }}">
-                    <button type="submit">Terminar</button>
+                <form method="POST" action="/terminar/{{ tarea['id'] }}" style="display:inline;">
+                    <button type="submit" class="btn-action btn-finish" title="Terminar">
+                        <span class="material-symbols-rounded">Listo!</span>
+                    </button>
                 </form>
                 {% endif %}
 
-                <form method="POST" action="/eliminar/{{ tarea['id'] }}">
-                    <button type="submit">Eliminar</button>
-                </form>
+                <a href="/editar/{{ tarea['id'] }}" class="btn-action btn-edit" title="Editar">
+                    <span class="material-symbols-rounded">Editar</span>
+                </a>
 
-                <a href="/editar/{{ tarea['id'] }}">Editar</a>
+                <form method="POST" action="/eliminar/{{ tarea['id'] }}" style="display:inline;">
+                    <button type="submit" class="btn-action btn-delete" title="Eliminar">
+                        <span class="material-symbols-rounded">Borrar</span>
+                    </button>
+                </form>
             </div>
         </li>
         {% endfor %}
     </ul>
 </div>
+
+</body>
+</html>
